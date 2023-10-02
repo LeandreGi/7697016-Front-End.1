@@ -130,3 +130,16 @@ for(let i=0 ; i < nomsDisponibles.length ; i++){
 const pElementDisponible = document.createElement('p')
 pElementDisponible.innerText = "Pièces disponibles:";
 document.querySelector('.disponibles').appendChild(pElementDisponible).appendChild(disponiblesElement)
+
+
+//Prix maximum
+
+const BoutonPrixMax = document.getElementById("prix-max")
+
+BoutonPrixMax.addEventListener("mouseup", function() {
+    const nomsPrix = pieces.filter(function(piece) {
+        return piece.prix <= BoutonPrixMax.value;
+    });
+    document.querySelector(".fiches").innerHTML = "";
+    genererPieces(nomsPrix);
+});
