@@ -10,8 +10,6 @@ export function ajoutListenersAvis() {
         fetch(`http://localhost:8081/pieces/${id}/avis`);
  
      });
- 
     }
- 
  }
  
