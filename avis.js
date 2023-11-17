@@ -80,5 +80,58 @@ export async function afficherGraphiqueAvis() {
         document.querySelector("#graphique-avis"),
         config,
     );
+
+    //deuxieme graphique
+    const piecesJSON = window.localStorage.getItem("pieces");
+    const pieces = JSON.parse(piecesJSON);
+
+    let nb_commentaires_dispo = [0, 0];
+    for (let i = 0; i<avis.length; i++) {
+        const piece = pieces.find(p => p.id === avis[i].pieceId);
+        if (piece) {
+            if (piece.disponibilite) {
+                nb_commentaires_dispo[0]++;
+            } else {
+                nb_commentaires_dispo[1]++;
+            };
+        };
+    };
+
+    //Données du deuxieme graphique
+    const labels_0 = ["Pièce.s disponible.s", "Pièce.s non disponible.s"];
+    const data_0 = {
+        labels : labels_0,
+        datasets : [{
+            label : "Graphique des avis selon la disponibilité",
+            data : nb_commentaires_dispo,
+            backgroundColor : [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+            ],
+            borderColor : [
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+            ],
+            borderWidth : 1
+        }]
+    };
+
+    //Création du deuxieme graphique
+    const config_0 = {
+        type: 'bar',
+        data: data_0,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+
+    const graphiqueAvisDispo = new Chart(
+        document.querySelector("#graphique-dispo"),
+        config_0,
+    )
 }
 
